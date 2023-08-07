@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">LLOYDS Test</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="phone_number_verify">Phone Number Verify</string>
+    <string name="phone_number_valid">Phone number is valid</string>
+    <string name="phone_number_not_valid">Phone number is not valid</string>
+
+    <string name="your_device_offline">You are offline.</string>
+    <string name="some_error_occurred">Some error occurred!</string>
+    <string name="select_country">Select Country</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="dummy_number">000000000</string>
+    <string name="valid">Valid</string>
+    <string name="phone_number_info">Phone Number Info</string>
+    <string name="code_sync">Country Code</string>
+    <string name="authentication_error">Something went wrong with the authentication token.</string>
+
+</resources>

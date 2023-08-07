@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.demo.lloydstest.models.Country" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@color/grey_light">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/code"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="@{model.diallingCode}"
+            android:textColor="@color/black"
+            android:background="@color/grey"
+            android:textStyle="bold"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Mex" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textSize="20sp"
+            android:text="@{model.countryName}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/code"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Mexican MexicanMexicanMexicanMexicanMexican" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

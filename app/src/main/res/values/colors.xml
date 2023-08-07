@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="purple">#673AB7</color>
+    <color name="blue">#2196F3</color>
+    <color name="red">#F44336</color>
+    <color name="custom_spinner_background_color">#DFDAD9</color>
+
+
+    <color name="white_50">#DD000000</color>
+    <color name="grey">#B4B0B0</color>
+    <color name="grey_light">#D5D0D0</color>
+    <color name="focused_color">#CFCDCC</color>
+    <color name="default_color">#DBD6D5</color>
+
+
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#4E4C4C</color>
+</resources>
