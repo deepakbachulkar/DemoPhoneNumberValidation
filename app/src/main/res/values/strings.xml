@@ -7,6 +7,8 @@
     <string name="phone_number_valid">Phone number is valid</string>
     <string name="phone_number_not_valid">Phone number is not valid</string>
 
+    <string name="code_">Phone Number Verify</string>
+
     <string name="your_device_offline">You are offline.</string>
     <string name="some_error_occurred">Some error occurred!</string>
     <string name="select_country">Select Country</string>
@@ -16,5 +18,7 @@
     <string name="phone_number_info">Phone Number Info</string>
     <string name="code_sync">Country Code</string>
     <string name="authentication_error">Something went wrong with the authentication token.</string>
+    <string name="please_select_country_code">Please select country code</string>
+    <string name="please_enter_phone_number">Please enter phone number</string>
 
 </resources>

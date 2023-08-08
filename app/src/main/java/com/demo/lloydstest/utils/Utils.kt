@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.demo.lloydstest.utils
 
 import android.app.Activity
@@ -25,12 +27,16 @@ fun Context.showNegativeAlerter(message: String) {
     ).show()
 }
 
-
-fun View.hideKeyboard(context: Context) {
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
+fun Activity.hideKeyboard() {
+    val inputMethodManager =
+        this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    var view = this.currentFocus
+    //If no view currently has focus, create a new one, just so we can grab a window token from it
+    if (view == null) {
+        view = View(this)
+    }
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
-
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_LONG) {
     if (message.isNotEmpty()) {
         try {

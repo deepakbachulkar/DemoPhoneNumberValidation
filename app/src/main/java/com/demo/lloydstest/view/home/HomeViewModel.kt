@@ -1,7 +1,9 @@
 package com.demo.lloydstest.view.home
 
 import android.util.Log
+import android.view.View
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableParcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,6 +17,7 @@ import com.demo.lloydstest.networkcalls.Repository
 import com.demo.lloydstest.networkcalls.RetrofitApi
 import com.demo.lloydstest.utils.Constants
 import com.demo.lloydstest.utils.getCurrentActivity
+import com.demo.lloydstest.utils.hideKeyboard
 import com.demo.lloydstest.utils.showToast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,23 +29,13 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     val showLoader = MutableLiveData(false)
     val countries = MutableLiveData<List<Country>>(null)
+    val isCountryList  =  ObservableField(false)
     val countryAdapter by lazy { SpinnerGenericAdapter<Country>(R.layout.item_spinner_country) }
     val code  = ObservableField("")
     val phoneNumber  = ObservableField("")
-    val countryDetailsMLD  = MutableLiveData<ValidateResponse>(null)
+    val countryDetails  = ObservableParcelable<ValidateResponse>(null)
     val isMessageValidShow  =  ObservableField(false)
-    val validMessage  =  ObservableField("")
 
-
-    /**
-     * Phone number validation message
-     * **/
-    fun initPhoneValidation(isValid:Boolean):String {
-        return if(isValid)
-            "Phone number is valid"
-        else
-            "Phone number is not valid"
-    }
 
     /**
      * API call of get country codes
@@ -81,9 +74,12 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                                     )
                                 }
                             }
-                            countries.value = data
-                            countryAdapter.addItems(data)
-                            code.set(data[0].diallingCode?.let { it.substring(1, it.length) })
+                            if(data.isNotEmpty()) {
+                                countries.value = data
+                                countryAdapter.addItems(data)
+                                code.set(data[0].diallingCode?.let { it.substring(1, it.length) })
+                                isCountryList.set(true)
+                            }
                         }
                     }
                 )
@@ -117,34 +113,37 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
                 override fun onResponse(res: Response<ValidateResponse>) {
                     showLoader.postValue(false)
-                    res.body()?.let { it ->
-                        countryDetailsMLD.value = it
+                    res.body()?.let {
+                        countryDetails.set(it)
                         isMessageValidShow.set(true)
-                        validMessage.set(it.valid.let { it1-> if(it1)
-                            getCurrentActivity().getString(R.string.phone_number_valid)
-                        else
-                            getCurrentActivity().getString(R.string.phone_number_not_valid)
-                        })
-                        isMessageValidShow.notifyChange()
                     }
                 }
             }
         )
     }
 
+    fun onClick(view: View){
+        when(view.id){
+            R.id.valid ->{
+                getCurrentActivity().hideKeyboard()
+                onClickValid()
+            }
+            R.id.syncCodes -> {
+                hitCountryCodesData()
+            }
+        }
+    }
     /**
      * Onclick of valid button
      */
-    fun onClickValid() {
+    private fun onClickValid() {
         Log.d("Demo", "Phone: ${code.get()} ${phoneNumber.get()}")
         if(code.get().isNullOrBlank())
-            getCurrentActivity().showToast("Please select country code")
+            getCurrentActivity().showToast(getCurrentActivity().getString(R.string.please_select_country_code))
         else if(phoneNumber.get().isNullOrBlank()){
-            getCurrentActivity().showToast("Please enter phone number")
+            getCurrentActivity().showToast(getCurrentActivity().getString(R.string.please_enter_phone_number))
         }else {
             hitValidatePhoneNumber("${code.get()}${phoneNumber.get()}")
         }
     }
-
-
 }
